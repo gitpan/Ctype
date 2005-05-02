@@ -21,7 +21,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw();
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub AUTOLOAD {
     my $constname;
@@ -231,11 +231,16 @@ sub isuppercase {
 	return $u ? _isUPPER($c) : _isupper($c);
 }
 
+sub _my_isXDIGIT {
+	warnings::warnif("deprecated", "isXDIGIT is not offically part of Perl and may be removed");
+	return _isXDIGIT(shift);
+}
+
 sub ishexdigit {
 	my $obj = shift;
 	my $c = $obj->[0];
 	my $u = $obj->[1];
-	return $u ? _isXDIGIT($c) : _isxdigit($c);
+	return $u ? _my_isXDIGIT($c) : _isxdigit($c);
 }
 
 1;
@@ -284,6 +289,10 @@ The C<setchar> method sets the character stored in the object.
 =head1 AUTHOR
 
 Samuel Lauber, E<lt>sam124@operamail.comE<gt>
+
+=head1 COPYRIGHT
+
+This module is not copyrighted.  It may be redistributed as much as you want.  
 
 =head1 SEE ALSO
 
